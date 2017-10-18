@@ -334,7 +334,10 @@ spec:
         configMap:
           name: alertmanager-templates
       - name: alertmanager
-        emptyDir: {}
+        azureFile:
+          secretName: azure-file-secret
+          shareName: alertmanager-templates
+          readOnly: false
 ---
 apiVersion: v1
 kind: Service
@@ -407,7 +410,10 @@ spec:
           mountPath: /var
       volumes:
       - name: grafana-persistent-storage
-        emptyDir: {}
+        azureFile:
+          secretName: azure-file-secret
+          shareName: grafana-persistent-storage
+          readOnly: false
 ---
 apiVersion: v1
 data:
