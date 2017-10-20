@@ -2520,10 +2520,8 @@ spec:
         configMap:
           name: prometheus-rules
       - name: prometheus-data
-        azureFile:
-          secretName: azure-file-secret
-          shareName: prometheus-data
-          readOnly: false
+        - emptyDir: {}
+          name: data
       
 ---
 apiVersion: extensions/v1beta1
