@@ -2492,6 +2492,7 @@ spec:
         args:
           - '-storage.local.retention=48h'
           - '-storage.local.memory-chunks=500000'
+          - '-storage.local.path=/prometheus-data'
           - '-config.file=/etc/prometheus/prometheus.yaml'
           - '-alertmanager.url=http://alertmanager:9093/'
         ports:
@@ -2510,7 +2511,7 @@ spec:
         - name: rules-volume
           mountPath: /etc/prometheus-rules
         - name: prometheus-data
-          mountPath: /prometheus
+          mountPath: /prometheus-data
       volumes:
       - name: config-volume
         configMap:
@@ -2521,7 +2522,7 @@ spec:
       - name: prometheus-data
         azureFile:
           secretName: azure-file-secret
-          shareName: prometheus-storage
+          shareName: prometheus-data
           readOnly: false
       
 ---
