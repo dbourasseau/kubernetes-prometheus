@@ -2520,8 +2520,7 @@ spec:
         configMap:
           name: prometheus-rules
       - name: prometheus-data
-        - emptyDir: {}
-          name: data
+        emptyDir: {}
       
 ---
 apiVersion: extensions/v1beta1
