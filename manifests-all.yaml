@@ -2352,7 +2352,6 @@ spec:
   type: NodePort
   ports:
     - port: 3000
-    - nodePort: 31317
   selector:
     app: grafana
     component: core
