@@ -378,6 +378,11 @@ spec:
     spec:
       nodeSelector:
         dedicated: master
+      tolerations:
+        key: dedicated
+        operator: Equal
+        value: master
+        effect: NoSchedule
       containers:
       - image: grafana/grafana:4.2.0
         name: grafana-core
