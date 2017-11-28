@@ -335,10 +335,7 @@ spec:
         configMap:
           name: alertmanager-templates
       - name: alertmanager
-        azureFile:
-          secretName: azure-file-secret
-          shareName: alertmanager-templates
-          readOnly: false
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -415,7 +412,7 @@ spec:
           # timeoutSeconds: 1
         volumeMounts:
         - name: grafana-persistent-storage
-          mountPath: /var/
+          mountPath: /var
       volumes:
       - name: grafana-persistent-storage
         emptyDir: {}
@@ -2510,7 +2507,6 @@ spec:
         args:
           - '-storage.local.retention=48h'
           - '-storage.local.memory-chunks=500000'
-          - '-storage.local.path=/prometheus-data'
           - '-config.file=/etc/prometheus/prometheus.yaml'
           - '-alertmanager.url=http://alertmanager:9093/'
         ports:
@@ -2528,8 +2524,6 @@ spec:
           mountPath: /etc/prometheus
         - name: rules-volume
           mountPath: /etc/prometheus-rules
-        - name: prometheus-data
-          mountPath: /prometheus-data
       volumes:
       - name: config-volume
         configMap:
@@ -2537,9 +2531,6 @@ spec:
       - name: rules-volume
         configMap:
           name: prometheus-rules
-      - name: prometheus-data
-        emptyDir: {}
-      
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
